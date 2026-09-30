@@ -7,3 +7,6 @@ df.columns = df.columns.str.lower().str.replace(' ', '_').str.replace('.', '', r
 
 STATS = ['hp', 'attack', 'defense', 'sp_atk', 'sp_def', 'speed']
 
+# Checking dual type each gen
+df['is_dual'] = df['type_2'].notna()
+is_dual = df.groupby('generation')['is_dual'].mean().round(2)
