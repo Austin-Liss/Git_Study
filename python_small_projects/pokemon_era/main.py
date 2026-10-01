@@ -19,7 +19,9 @@ present = df.groupby('generation')['combo'].nunique()
 
 # Task 5. For each Pokémon, measure how uneven its stats are. 
     #  A creature with 100 in everything is balanced; one with 180 attack and 30 defense is a specialist.
-
 df['spread'] = df[STATS].std(1)
 cols = ['name','spread'] + STATS
 top_5 = df.nlargest(5,'spread')[cols].round(1)
+
+# Task 6. Has that measure changed across generations? Compare mean and median per generation.
+compare = df.groupby('generation')['spread'].agg(count='size',mean='mean',median='median',q75=lambda s : s.quantile(.75),max='max').round(1)
