@@ -33,3 +33,14 @@ trend = (df.groupby(['generation','legendary'])['spread']
          .rename(columns={False:'Regular',True:'Legendary'})
          .round(2)
          )
+
+# Task 9. For each Pokémon, work out whether it leans physical (attack/defense) or special (sp_atk/sp_def). 
+#   You decide how to define the lean — a difference, a ratio, something else. Be able to defend it in the README.
+df['lean'] = (df['attack'] - df['sp_atk']) / (df['attack'] + df['sp_atk'])
+df['specialty'] = np.select(
+                [df['lean'] > 0 , df['lean'] < -0.1],
+                ['Physical', 'Special Atk'],
+                default= 'Balanced'
+                )
+sample = ['Alakazam','Machamp','Regirock','Regice','Shuckle','Snorlax','Magikarp','Blissey','Gengar','Garchomp']
+# print(df.set_index('name').reindex(sample)[['attack','sp_atk','lean','specialty']].round(2))
