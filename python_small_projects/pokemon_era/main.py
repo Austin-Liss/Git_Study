@@ -25,3 +25,11 @@ top_5 = df.nlargest(5,'spread')[cols].round(1)
 
 # Task 6. Has that measure changed across generations? Compare mean and median per generation.
 compare = df.groupby('generation')['spread'].agg(count='size',mean='mean',median='median',q75=lambda s : s.quantile(.75),max='max').round(1)
+
+# Task 7. Is the trend the same for legendaries and non-legendaries?
+trend = (df.groupby(['generation','legendary'])['spread']
+         .agg(n='size',mean='mean',median='median')
+         .unstack()
+         .rename(columns={False:'Regular',True:'Legendary'})
+         .round(2)
+         )
