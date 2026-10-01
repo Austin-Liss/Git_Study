@@ -44,3 +44,8 @@ df['specialty'] = np.select(
                 )
 sample = ['Alakazam','Machamp','Regirock','Regice','Shuckle','Snorlax','Magikarp','Blissey','Gengar','Garchomp']
 # print(df.set_index('name').reindex(sample)[['attack','sp_atk','lean','specialty']].round(2))
+
+# Task 10. Has the physical/special balance shifted across generations?
+lean_compare = df.groupby(['generation','specialty']).size().unstack(fill_value=0)
+lean_pct = (lean_compare.div(lean_compare.sum(1),axis=0)*100).round(1)
+# -> All the shift across all generations
