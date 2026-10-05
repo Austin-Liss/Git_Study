@@ -23,9 +23,18 @@ agg = (df.groupby('legendary')['total']
 legend = df[df.legendary]
 regular = df[~df.legendary]
 
-print(df.loc[legend.total.idxmin()]) # shows Articuno is a Legendary with lowest total stats
-print(df.loc[regular.total.idxmax()]) # shows Mega Tyranitar is Non-Legendary with highest total stats
+# print(df.loc[legend.total.idxmin()]) # shows Articuno is a Legendary with lowest total stats
+# print(df.loc[regular.total.idxmax()]) # shows Mega Tyranitar is Non-Legendary with highest total stats
 
 lo, hi = legend.total.min(), regular.total.max()
-print((legend.total <= hi).sum())
-print((regular.total >= lo).mean())
+# print((legend.total <= hi).sum())
+# print((regular.total >= lo).mean())
+
+# Task 5. Mean of all six stats for both groups. Then add a row showing the gap between them. Which stat has the biggest gap? The smallest?
+mean = df.groupby('legendary')[STATS].mean()
+gap = mean.loc[True] - mean.loc[False] 
+mean.loc['Gap'] = gap
+mean = df.groupby('legendary')[STATS].mean().rename({False:'Regular',True:'Legendary'}).rename_axis('mean').round(2)
+print(mean)
+print(gap.idxmax(),gap.max().round(2))
+print(gap.idxmin(),gap.min().round(2))
