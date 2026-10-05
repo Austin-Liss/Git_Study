@@ -32,9 +32,23 @@ lo, hi = legend.total.min(), regular.total.max()
 
 # Task 5. Mean of all six stats for both groups. Then add a row showing the gap between them. Which stat has the biggest gap? The smallest?
 mean = df.groupby('legendary')[STATS].mean()
-gap = mean.loc[True] - mean.loc[False] 
+gap = mean.loc[True] - mean.loc[False]
 mean.loc['Gap'] = gap
-mean = df.groupby('legendary')[STATS].mean().rename({False:'Regular',True:'Legendary'}).rename_axis('mean').round(2)
-print(mean)
-print(gap.idxmax(),gap.max().round(2))
-print(gap.idxmin(),gap.min().round(2))
+mean = mean.rename({False: 'Regular', True: 'Legendary'}).rename_axis('group').round(2)
+# print(mean)
+# print(gap.idxmax(),gap.max().round(2))
+# print(gap.idxmin(),gap.min().round(2))
+
+# Task 6. Which types have the most legendaries? Show the count and the percentage of that type that's legendary — they give different answers.
+count = df.groupby(['legendary','type_1']).size().unstack(fill_value=0)
+n = df.groupby('type_1').size()
+pct = (count / n).round(2)
+tab_6 = df.groupby('type_1').agg(
+    total=('legendary', 'size'),
+    legendary=('legendary', 'sum'),
+    pct=('legendary', 'mean'),
+)
+tab_6['regular'] = tab_6.total - tab_6.legendary
+tab_6['pct_legendary'] = (tab_6.pop('pct') * 100).round(1)
+print(tab_6.legendary.nlargest(3)) # shows top 3 type has high legendary rate
+print(df.query("type_1 == 'Psychic' and legendary")) # print out all Psychic Legendaries 
