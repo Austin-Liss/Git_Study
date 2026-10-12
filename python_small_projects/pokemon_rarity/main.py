@@ -78,25 +78,27 @@ mean = mean.rename({False: 'Regular', True: 'Legendary'}).rename_axis('group').r
 # plt.show()
     # Histogram chart
 
-leg = df.loc[df.legendary, 'total']
-reg = df.loc[~df.legendary, 'total']
+# leg = df.loc[df.legendary, 'total']
+# reg = df.loc[~df.legendary, 'total']
 
-bins = np.linspace(df.total.min(), df.total.max(), 31)   # ONE bin array, used twice
+# bins = np.linspace(df.total.min(), df.total.max(), 31)   # ONE bin array, used twice
 
-fig, ax = plt.subplots(figsize=(9, 5))
-ax.hist(reg, bins=bins, density=True, alpha=0.55, color='C1', label=f'Non-Legendary (n={len(reg)})')
-ax.hist(leg, bins=bins, density=True, alpha=0.55, color='C0', label=f'Legendary (n={len(leg)})')
+# fig, ax = plt.subplots(figsize=(9, 5))
+# ax.hist(reg, bins=bins, density=True, alpha=0.55, color='C1', label=f'Non-Legendary (n={len(reg)})')
+# ax.hist(leg, bins=bins, density=True, alpha=0.55, color='C0', label=f'Legendary (n={len(leg)})')
 
-ax.axvline(reg.mean(), color='C1', ls='--', lw=2)
-ax.axvline(leg.mean(), color='C0', ls='--', lw=2)
-ax.annotate(f'{reg.mean():.0f}', xy=(reg.mean(), ax.get_ylim()[1]*0.95),
-            ha='right', va='top', color='C1', fontweight='bold')
-ax.annotate(f'{leg.mean():.0f}', xy=(leg.mean(), ax.get_ylim()[1]*0.95),
-            ha='left', va='top', color='C0', fontweight='bold')
+# ax.axvline(reg.mean(), color='C1', ls='--', lw=2)
+# ax.axvline(leg.mean(), color='C0', ls='--', lw=2)
+# ax.annotate(f'{reg.mean():.0f}', xy=(reg.mean(), ax.get_ylim()[1]*0.95),
+#             ha='right', va='top', color='C1', fontweight='bold')
+# ax.annotate(f'{leg.mean():.0f}', xy=(leg.mean(), ax.get_ylim()[1]*0.95),
+#             ha='left', va='top', color='C0', fontweight='bold')
 
-ax.set_xlabel('Total base stats'); ax.set_ylabel('Density')
-ax.set_title('Distribution of total: legendary vs non-legendary')
-ax.legend() 
-ax.grid(axis='y', alpha=0.3); ax.set_axisbelow(True)
+# ax.set_xlabel('Total base stats'); ax.set_ylabel('Density')
+# ax.set_title('Distribution of total: legendary vs non-legendary')
+# ax.legend() 
+# ax.grid(axis='y', alpha=0.3); ax.set_axisbelow(True)
 
-plt.show()
+# plt.show()
+
+# THATS ALL FOR THIS PROJECT 
