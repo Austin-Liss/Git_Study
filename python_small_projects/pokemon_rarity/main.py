@@ -40,15 +40,38 @@ mean = mean.rename({False: 'Regular', True: 'Legendary'}).rename_axis('group').r
 # print(gap.idxmin(),gap.min().round(2))
 
 # Task 6. Which types have the most legendaries? Show the count and the percentage of that type that's legendary — they give different answers.
-count = df.groupby(['legendary','type_1']).size().unstack(fill_value=0)
-n = df.groupby('type_1').size()
-pct = (count / n).round(2)
-tab_6 = df.groupby('type_1').agg(
-    total=('legendary', 'size'),
-    legendary=('legendary', 'sum'),
-    pct=('legendary', 'mean'),
-)
-tab_6['regular'] = tab_6.total - tab_6.legendary
-tab_6['pct_legendary'] = (tab_6.pop('pct') * 100).round(1)
-print(tab_6.legendary.nlargest(3)) # shows top 3 type has high legendary rate
-print(df.query("type_1 == 'Psychic' and legendary")) # print out all Psychic Legendaries 
+# count = df.groupby(['legendary','type_1']).size().unstack(fill_value=0)
+# n = df.groupby('type_1').size()
+# pct = (count / n).round(2)
+# tab_6 = df.groupby('type_1').agg(
+#     total=('legendary', 'size'),
+#     legendary=('legendary', 'sum'),
+#     pct=('legendary', 'mean'),
+# )
+# tab_6['regular'] = tab_6.total - tab_6.legendary
+# tab_6['pct_legendary'] = (tab_6.pop('pct') * 100).round(1)
+# print(tab_6.legendary.nlargest(3)) # shows top 3 type has most legendaries
+# print(df.query("type_1 == 'Psychic' and legendary")) # print out all Psychic Legendaries 
+
+# Graphing charts
+means = df.groupby('legendary')[STATS].mean()
+leg, reg = means.loc[True], means.loc[False]
+
+fig, ax = plt.subplots(figsize=(9, 5))
+x = np.arange(len(STATS))
+w = 0.4
+
+b1 = ax.bar(x - w/2, leg, w, color='C0', label='Legendary')
+b2 = ax.bar(x + w/2, reg, w, color='C1', label='Non-Legendary')
+
+ax.set_xticks(x)
+ax.set_xticklabels([s.replace('_', ' ').title() for s in STATS])
+ax.set_ylabel('Mean stat value')
+ax.set_title('Mean stats: legendary vs non-legendary')
+ax.bar_label(b1, fmt='%.0f', fontsize=8)
+ax.bar_label(b2, fmt='%.0f', fontsize=8)
+ax.legend()
+ax.grid(axis='y', alpha=0.3)
+ax.set_axisbelow(True)
+
+plt.show()
