@@ -17,11 +17,17 @@ df.columns = df.columns.str.lower().str.replace(' ','_').str.replace('(','',rege
 # print(f"Spread: {spread:.1f} calories {pct:.1f}% of overall mean {df.calories_burned.mean():.1f} ")
 
 # Task 3. Correlate every numeric column against calories_burned, sorted. Which variable dominates? Which are near zero? Any negative?
-cor = df.corr(numeric_only=True)['calories_burned'].drop('calories_burned').sort_values()
-negatives = cor[cor < 0]
-near_zero = cor[cor.abs() < 0.1]
-dominate = cor.abs().idxmax()
-print(f'Negatives : {list(negatives.index)}')
-print(f'Near zeros : {list(near_zero.index)}')
-print(f'Dominate : {dominate} ({cor[dominate]:.2f})')
+# cor = df.corr(numeric_only=True)['calories_burned'].drop('calories_burned').sort_values()
+# negatives = cor[cor < 0]
+# near_zero = cor[cor.abs() < 0.1]
+# dominate = cor.abs().idxmax()
+# print(f'Negatives : {list(negatives.index)}')
+# print(f'Near zeros : {list(near_zero.index)}')
+# print(f'Dominate : {dominate} ({cor[dominate]:.2f})')
+
+# Task 5. Add a column calories_per_hour = calories divided by session duration. 
+    # Now redo Task 2 using this instead. Does the ranking of workout types change?
+df['calories_per_hour'] = df['calories_burned'] / df['session_duration_hours']
+t = df.groupby('workout_type')['calories_per_hour'].agg(n='size',mean='mean',median='median',std='std').round(1).sort_values('mean',ascending=False)
+print(t)
 
