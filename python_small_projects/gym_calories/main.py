@@ -28,14 +28,31 @@ df.columns = df.columns.str.lower().str.replace(' ','_').str.replace('(','',rege
 # Task 5. Add a column calories_per_hour = calories divided by session duration. 
     # Now redo Task 2 using this instead. Does the ranking of workout types change?
 df['calories_per_hour'] = df['calories_burned'] / df['session_duration_hours']
-t = df.groupby('workout_type')['calories_per_hour'].agg(n='size',mean='mean',median='median',std='std').round(1).sort_values('mean',ascending=False)
+# t = df.groupby('workout_type')['calories_per_hour'].agg(n='size',mean='mean',median='median',std='std').round(1).sort_values('mean',ascending=False)
 # print(t)
 
 # Task 6. Compare mean session duration by workout type. Are the four groups even training for comparable lengths of time?
-mean = (df.groupby('workout_type')['session_duration_hours']
-        .agg(n='size',hours='mean',median='median',std='std',
-             q25 = lambda s : s.quantile(0.25), q75 = lambda s : s.quantile(.75), min='min',max='max')
-        .assign(minutes = lambda h : h.hours * 60)
-        .round(3)
-        .sort_values('hours',ascending=False))
-print(mean)
+# mean = (df.groupby('workout_type')['session_duration_hours']
+#         .agg(n='size',hours='mean',median='median',std='std',
+#              q25 = lambda s : s.quantile(0.25), q75 = lambda s : s.quantile(.75), min='min',max='max')
+#         .assign(minutes = lambda h : h.hours * 60)
+#         .round(3)
+#         .sort_values('hours',ascending=False))
+# print(mean)
+
+# Task 7. Bin session duration into four buckets, then compare workout types within each bucket. 
+    # Does any type win consistently across all four?
+df['duration_bucket'] = pd.qcut(df.session_duration_hours,4,labels=['Q1','Q2','Q3','Q4'])
+counts = pd.crosstab(df.duration_bucket,df.workout_type)
+print(f'Cell sizes: \n {counts}')
+rate = df.pivot_table(index='duration_bucket',columns='workout_type',values='calories_per_hour',aggfunc='mean',observed=True).round(2)
+print(f'Mean per workout type: \n {rate}')
+rank = rate.rank(axis=1,ascending=False).astype(dtype=int)
+print("Rank within each bucket (1 = highest):\n", rank, "\n")
+
+print("Winner per bucket:", rate.idxmax(axis=1).tolist())
+print("Spread within each bucket:", (rate.max(axis=1) - rate.min(axis=1)).round(1).tolist())
+
+consistent = (rank == 1).all()                     # all() down each column
+winner = consistent[consistent].index.tolist()
+print("Wins every bucket:", winner if winner else "none")
