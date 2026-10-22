@@ -29,5 +29,13 @@ df.columns = df.columns.str.lower().str.replace(' ','_').str.replace('(','',rege
     # Now redo Task 2 using this instead. Does the ranking of workout types change?
 df['calories_per_hour'] = df['calories_burned'] / df['session_duration_hours']
 t = df.groupby('workout_type')['calories_per_hour'].agg(n='size',mean='mean',median='median',std='std').round(1).sort_values('mean',ascending=False)
-print(t)
+# print(t)
 
+# Task 6. Compare mean session duration by workout type. Are the four groups even training for comparable lengths of time?
+mean = (df.groupby('workout_type')['session_duration_hours']
+        .agg(n='size',hours='mean',median='median',std='std',
+             q25 = lambda s : s.quantile(0.25), q75 = lambda s : s.quantile(.75), min='min',max='max')
+        .assign(minutes = lambda h : h.hours * 60)
+        .round(3)
+        .sort_values('hours',ascending=False))
+print(mean)
