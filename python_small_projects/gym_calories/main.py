@@ -59,12 +59,18 @@ df['duration_bucket'] = pd.qcut(df.session_duration_hours,4,labels=['Q1','Q2','Q
 
 # Task 8. For each experience level, compute mean session duration, 
     # mean weekly frequency, and mean calories burned. Look at all three together.
-tab = (df.groupby('experience_level').agg(
-        n = ('experience_level','size'),
-        hours = ('session_duration_hours','mean'),
-        freq = ('workout_frequency_days_week','mean'),
-        cal_per_hour = ('calories_burned','mean'),
-).round(2))
-tab['weekly_hours'] = (tab.hours * tab.freq).round(2)
-tab['cal_per_week'] = (tab.cal_per_hour * tab.weekly_hours).round(2)
+# tab = (df.groupby('experience_level').agg(
+#         n = ('experience_level','size'),
+#         hours = ('session_duration_hours','mean'),
+#         freq = ('workout_frequency_days_week','mean'),
+#         cal_per_hour = ('calories_burned','mean'),
+# ).round(2))
+# tab['weekly_hours'] = (tab.hours * tab.freq).round(2)
+# tab['cal_per_week'] = (tab.cal_per_hour * tab.weekly_hours).round(2)
+# print(tab)
+
+# Task 9. Experience level clearly relates to calories. But is that because experienced people burn faster, or because they train longer? 
+    # Compare calories_per_hour by experience level and see whether the gap survives.
+    # Hint: if the raw gap is large and the per-hour gap is small, duration was doing the work.
+tab = pd.crosstab(df.experience_level,df.calories_per_hour)
 print(tab)
