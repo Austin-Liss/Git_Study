@@ -23,10 +23,17 @@ df_clean = df.drop_duplicates(subset=drop).reset_index(drop=True)
 # print(f'Age mean changes from {df.age.mean():.2f} -> {df_clean.age.mean():.2f}')
 
 # Task 4 : Check the age distribution
-age = df.age.value_counts().sort_index()
-axes.hist(df.age,bins=range(20,39),color='C0',edgecolor='white')
-axes.set_xlabel('Age')
-axes.set_ylabel('Students')
-axes.grid(axis='y', alpha=0.3) 
-axes.set_axisbelow(True)
-plt.show()
+# age = df.age.value_counts().sort_index()
+# axes.hist(df.age,bins=range(20,39),color='C0',edgecolor='white')
+# axes.set_xlabel('Age')
+# axes.set_ylabel('Students')
+# axes.grid(axis='y', alpha=0.3) 
+# axes.set_axisbelow(True)
+# plt.show()
+
+# Task 5 : Encode the skill columns
+SKILLS = ['python','sql','java']
+LEVELS = {'Weak':1,'Average':2,'Strong':3}
+for skill in SKILLS :
+    df[skill + '_n'] = df[skill].map(LEVELS)
+print(df[[c + '_n' for c in SKILLS]].isna().sum())
