@@ -36,4 +36,10 @@ SKILLS = ['python','sql','java']
 LEVELS = {'Weak':1,'Average':2,'Strong':3}
 for skill in SKILLS :
     df[skill + '_n'] = df[skill].map(LEVELS)
-print(df[[c + '_n' for c in SKILLS]].isna().sum())
+# print(df[[c + '_n' for c in SKILLS]].isna().sum())
+
+# Task 6 : Build a total skill score and look at its distribution
+ENCODED = [skill + '_n' for skill in SKILLS]
+df['skill_total'] = df[ENCODED].sum(axis=1)
+print(len(df.skill_total))
+print(df.skill_total.value_counts().sort_index())
