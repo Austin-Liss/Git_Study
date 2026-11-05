@@ -41,5 +41,13 @@ for skill in SKILLS :
 # Task 6 : Build a total skill score and look at its distribution
 ENCODED = [skill + '_n' for skill in SKILLS]
 df['skill_total'] = df[ENCODED].sum(axis=1)
-print(len(df.skill_total))
-print(df.skill_total.value_counts().sort_index())
+# print(len(df.skill_total))
+# print(df.skill_total.value_counts().sort_index())
+
+# Task 7 — Investigate the skill combinations : Count how many students have each possible combination of the three skill levels.
+# print(df.groupby(['python_n','sql_n','java_n']).size().sort_values(ascending=True))
+
+# Task 8 — Test whether skills relate to GPA : Check whether students with higher skill scores have higher GPAs.
+print(f"Student's GPA : \n{df.gpa.describe()}")
+print(f"Student's skill scorres : {sorted(df.gpa.unique())}")
+print(df.skill_total.corr(df.gpa))
