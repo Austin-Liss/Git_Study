@@ -60,6 +60,19 @@ def group_rare(series,n=8,other='Other') :
     return series.where(series.isin(top),other)
 df['domain_grouped'] = group_rare(df.interested_domain)
 df['career_grouped'] = group_rare(df.future_career)
-for raw, new in [('interested_domain','domain_grouped'),('future_career','career_grouped')] :
-    print(f"{raw}: {df[raw].nunique()} -> {df[new].nunique()}")
-    print(f"{df[new].value_counts().to_string()} \n")
+# for raw, new in [('interested_domain','domain_grouped'),('future_career','career_grouped')] :
+#     print(f"{raw}: {df[raw].nunique()} -> {df[new].nunique()}")
+#     print(f"{df[new].value_counts().to_string()} \n")
+
+# Task 10 — Check whether domains predict skills too well
+    # For each of the top domains, compute the mean Python score, the mean SQL score, the mean Java score, and the number of students.
+tab = (df.groupby('domain_grouped')
+       .agg(n=('domain_grouped','size'),
+            python_mean=('python_n','mean'),
+            sql_mean=('sql_n','mean'),
+            java_mean=('java_n','mean'))
+       .round(2)
+       .sort_values('n', ascending=False)
+    )
+
+print(tab)
