@@ -48,6 +48,18 @@ df['skill_total'] = df[ENCODED].sum(axis=1)
 # print(df.groupby(['python_n','sql_n','java_n']).size().sort_values(ascending=True))
 
 # Task 8 — Test whether skills relate to GPA : Check whether students with higher skill scores have higher GPAs.
-print(f"Student's GPA : \n{df.gpa.describe()}")
-print(f"Student's skill scorres : {sorted(df.gpa.unique())}")
-print(df.skill_total.corr(df.gpa))
+# print(f"Student's GPA : \n{df.gpa.describe()}")
+# print(f"Student's skill scorres : {sorted(df.gpa.unique())}")
+# print(df.skill_total.corr(df.gpa))
+
+# Task 9 - Tame the high-cardinality columns 
+    # Interested_domain and future_career have far too many distinct values to chart. 
+    # Collapse each one down to its top 8 values plus a catch-all “Other” category.
+def group_rare(series,n=8,other='Other') :
+    top = series.value_counts().head(8).index
+    return series.where(series.isin(top),other)
+df['domain_grouped'] = group_rare(df.interested_domain)
+df['career_grouped'] = group_rare(df.future_career)
+for raw, new in [('interested_domain','domain_grouped'),('future_career','career_grouped')] :
+    print(f"{raw}: {df[raw].nunique()} -> {df[new].nunique()}")
+    print(f"{df[new].value_counts().to_string()} \n")
