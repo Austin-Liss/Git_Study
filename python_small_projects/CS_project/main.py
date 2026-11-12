@@ -75,4 +75,15 @@ tab = (df.groupby('domain_grouped')
        .sort_values('n', ascending=False)
     )
 
-print(tab)
+# print(tab)
+
+# Task 11 — Compare skills by gender
+    # Compare mean Python, SQL and Java scores between male and female students, with group sizes.
+tab2 = (df.groupby('gender')
+        .agg(n=('gender','size'),
+            python_mean=('python_n','mean'),
+            sql_mean=('sql_n','mean'),
+            java_mean=('java_n','mean'))
+        .round(2)        
+        )
+print(tab2)

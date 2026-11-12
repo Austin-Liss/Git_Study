@@ -1,0 +1,42 @@
+supplier_id,supplier_name,street_address,city,state,zip_code,country,lead_time_days,contract_start,quality_rating
+SUP-1000,Cascade Trading,9360 Harbor Rd,Fresno,CA,66257,USA,32.0,2024-02-28,4.0
+SUP-1001,Harborline Foods,8269 Commerce Dr,Salinas,CA,30268,Mexico,5.0,2020-09-22,3.7
+SUP-1002,Northfield Supply Co,9043 Cannery Row,Portland,OR,10473,USA,24.0,2023-09-21,3.9
+SUP-1003,RÍO VERDE GROUP,1267 Foundry Ln,Boise,ID,52113,USA,38.0,2020-09-28,4.3
+SUP-1004,Summit Imports,7150 Freight St,Reno,NV,32938,USA,45.0,2021-07-23,4.1
+SUP-1005,Blue Ridge Supply Co,5808 Terminal Blvd,Tucson,AZ,59814,USA,24.0,2024-09-21,3.9
+SUP-1006,Fairmont Works,6962 Commerce Dr,Denver,CO,65995,Canada,17.0,2024-09-07,3.3
+SUP-1007,Greenstone Works,8381 Industrial Pkwy,Omaha,NE,24418,USA,39.0,2022-07-10,4.2
+SUP-1008,Pacific Crest Imports,4458 Industrial Pkwy,Dallas,TX,13211,Canada,9.0,2021-12-17,3.0
+SUP-1009,Ironwood Foods,8022 Terminal Blvd,Springfield,MO,92544,Canada,38.0,2022-08-14,4.2
+SUP-1010,Clearwater Provisions,2709 Freight St,Yakima,WA,54718,USA,19.0,2020-06-03,4.2
+SUP-1011,  Maplewood Supply Co,1052 Packing House Rd,Modesto,CA,27316,USA,44.0,2022-12-24,4.6
+SUP-1012,Sunridge Distributors,7165 Commerce Dr,Eugene,OR,43257,USA,24.0,2019-01-08,4.5
+SUP-1013,Kestrel Brands,6604 Cannery Row,Spokane,WA,23901,USA,25.0,2020-07-15,4.1
+SUP-1014,Lakeshore Supply Co,1925 Packing House Rd,Tempe,AZ,55880,USA,,2023-11-15,4.1
+SUP-1015,Brightfield Brands,512 Orchard Ave,Laredo,TX,76758,Mexico,23.0,2019-07-12,4.5
+SUP-1016,Copperleaf Imports,7222 Cannery Row,Fresno,CA,55698,USA,29.0,2024-01-04,5.0
+SUP-1017,Hollowbrook Partners,6403 Cannery Row,Salinas,CA,63835,USA,7.0,2019-05-05,4.1
+SUP-1018,Wintergreen Distributors,5963 Foundry Ln,Portland,OR,39072,USA,12.0,2019-11-12,4.4
+SUP-1019,Saltmarsh Provisions,4029 Terminal Blvd,Boise,ID,44149,USA,27.0,2024-08-17,4.7
+SUP-1020,Fernbank Trading,4406 Orchard Ave,Reno,NV,64454,USA,22.0,2022-09-01,3.9
+SUP-1021,Oakhollow Supply Co,9476 Commerce Dr,Tucson,AZ,23570,USA,27.0,2021-07-13,3.8
+SUP-1022,Driftwood Distributors,612 Cannery Row,Denver,CO,46224,USA,38.0,2019-07-23,4.6
+SUP-1023,Highvale Partners,9424 Freight St,Omaha,NE,29350,USA,3.0,2022-11-11,4.4
+SUP-1024,Stonebridge Supply Co,4971 Terminal Blvd,Dallas,TX,88666,USA,6.0,2022-10-22,4.1
+SUP-1025,Amberline Trading,8387 Cannery Row,Springfield,MO,86055,Mexico,23.0,2024-06-07,4.0
+SUP-1026,Westmere Works,9513 Orchard Ave,Yakima,WA,61274,USA,,2019-11-02,4.8
+SUP-1027,Thornhill Partners,7452 Commerce Dr,Modesto,CA,93510,Canada,13.0,2022-03-05,4.3
+SUP-1028,Quarrystone Provisions,3796 Orchard Ave,Eugene,OR,89564,Mexico,44.0,2022-09-09,3.6
+SUP-1029,Birchpoint Supply Co,694 Industrial Pkwy,Spokane,WA,43865,Mexico,45.0,2021-05-13,4.6
+SUP-1030,Meridian Provisions,7091 Packing House Rd,Tempe,AZ,13425,Canada,44.0,2024-01-15,4.4
+SUP-1031,Larkspur Partners,7562 Distribution Way,Laredo,TX,59286,Mexico,,2020-11-07,4.1
+SUP-1032,Coldspring Trading,639 Industrial Pkwy,Fresno,CA,12267,Canada,33.0,2021-02-20,4.3
+SUP-1033,Hartwell Trading,8990 Harbor Rd,Salinas,CA,21060,USA,,2024-07-24,4.0
+SUP-1034,Silverlake Partners,7233 Industrial Pkwy,Portland,OR,48539,USA,6.0,2022-01-04,5.0
+SUP-1035,Pinecrest Provisions,6786 Harbor Rd,Boise,ID,40978,Mexico,5.0,2022-05-24,4.2
+SUP-1036,Rookery Imports,8565 Freight St,Reno,NV,41986,Canada,41.0,2021-12-26,4.0
+SUP-1037,Alderton Partners,7833 Commerce Dr,Tucson,AZ,91825,USA,45.0,2019-11-14,3.6
+SUP-1038,Bramblewood Imports,3115 Terminal Blvd,Denver,CO,10466,USA,27.0,2023-05-01,3.6
+SUP-1039,Tidewater Distributors,6409 Freight St,Omaha,NE,22308,Canada,39.0,2021-05-29,4.5
+SUP-1007,Greenstone Works,8381 Industrial Pkwy,Omaha,NE,24418,USA,39.0,2022-07-10,4.2
