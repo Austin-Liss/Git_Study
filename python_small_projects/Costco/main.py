@@ -24,16 +24,32 @@ percentage = (count_na / len(df)) * 100
 # Task 5 : Normalize the supplier names
     # Find and fix names with leading/trailing whitespace and inconsistent capitalization.
 ws = df.supplier_name != df.supplier_name.str.strip()
-print(f'Whitespace problems: {ws.sum()}')
-print(df.loc[ws,'supplier_name'].to_string())
-print(df.loc[ws,'supplier_name'].apply(repr).to_string()) # points out apply(repr) makes difference
+# print(f'Whitespace problems: {ws.sum()}')
+# print(df.loc[ws,'supplier_name'].to_string())
+# print(df.loc[ws,'supplier_name'].apply(repr).to_string()) # points out apply(repr) makes difference
 stripped = df.supplier_name.str.strip()
 casing = stripped != stripped.str.title()
-print(f'Casing problems: {casing.sum()}')
-print(df.loc[casing,'supplier_name'].to_string())
-print(df.loc[casing,'supplier_name'].apply(repr).to_string())
+# print(f'Casing problems: {casing.sum()}')
+# print(df.loc[casing,'supplier_name'].to_string())
+# print(df.loc[casing,'supplier_name'].apply(repr).to_string())
 df['clean_name'] = df.supplier_name.str.strip().str.title()
 changed = df.clean_name != df.supplier_name
-print(f'Total changes: {changed.sum()}')
-print(df.loc[changed,['supplier_id','supplier_name','clean_name']].to_string(index=False))
-print(f'Spaces remaining: {(df.clean_name != df.clean_name.str.strip()).sum()}')
+# print(f'Total changes: {changed.sum()}')
+# print(df.loc[changed,['supplier_id','supplier_name','clean_name']].to_string(index=False))
+# print(f'Spaces remaining: {(df.clean_name != df.clean_name.str.strip()).sum()}')
+
+# Task 6 — Extract the entity type from the name
+    # The last word of each supplier name describes what kind of business it is — 
+    # Trading, Imports, Partners, Works, Co, and so on. Pull that out into its own column and count them.
+df['entity'] = df.clean_name.str.strip().str.split().str[-1]
+# print(df.clean_name.str.strip().str.split().str[-1].value_counts(ascending=True))
+# print(df.head(2))
+
+# Task 7 — Parse the dates and compute tenure
+    # contract_start is currently text. Convert it to a real date, then compute how many years each supplier has been under contract.
+df.contract_start = pd.to_datetime(df.contract_start)
+print(f'Check NaN values: {df.contract_start.isna().sum()}')
+START = pd.Timestamp('2026-11-14')
+today = START - df.contract_start
+df['contract_days'] = today.dt.days
+df['contract_years'] = (today.dt.days / 365.25).round(1)
