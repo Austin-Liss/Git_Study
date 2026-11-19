@@ -67,7 +67,25 @@ US_STATES = {'AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','I
              'LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND',
              'OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY','DC'}
 df['is_us_states'] = df.state.isin(US_STATES)
-print(pd.crosstab(df.state,df.country))
+# print(pd.crosstab(df.state,df.country))
 bug = df.is_us_states & (df.country != 'USA')
-print(f'\nUS state but not in US: {bug.sum()} ({(bug.mean() * 100):.1f}%)')
-print(df.loc[bug,['supplier_id','supplier_name','city','state','zip_code','country']].to_string(index=False))
+# print(f'\nUS state but not in US: {bug.sum()} ({(bug.mean() * 100):.1f}%)')
+# print(df.loc[bug,['supplier_id','supplier_name','city','state','zip_code','country']].to_string(index=False))
+
+# Task 10 — Write a validation function
+    # Do this: Write one function that takes a row and returns which checks it fails.
+def check_row(row) :
+    problems = []
+    if pd.isna(row.lead_time_days) :
+        problems.append('Missing lead day')
+    if pd.isna(row.zip_code) :
+        problems.append('Missing zipcode')
+    if row.is_us_states and row.country != 'USA' :
+        problems.append("Supplier's inconsistency")
+    if row.clean_name != row.supplier_name :
+        problems.append('Supplier name needs normalization')
+    return problems
+df['problems'] = df.apply(check_row,axis=1)
+df['n_problems'] = df.problems.str.len()
+print(f"rows with >=1 problem: {(df.n_problems > 0).sum()} of {len(df)}")
+print(df.problems.explode().value_counts())
