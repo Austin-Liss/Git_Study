@@ -48,8 +48,26 @@ df['entity'] = df.clean_name.str.strip().str.split().str[-1]
 # Task 7 — Parse the dates and compute tenure
     # contract_start is currently text. Convert it to a real date, then compute how many years each supplier has been under contract.
 df.contract_start = pd.to_datetime(df.contract_start)
-print(f'Check NaN values: {df.contract_start.isna().sum()}')
+# print(f'Check NaN values: {df.contract_start.isna().sum()}')
 START = pd.Timestamp('2026-11-14')
 today = START - df.contract_start
 df['contract_days'] = today.dt.days
 df['contract_years'] = (today.dt.days / 365.25).round(1)
+
+# Task 9 — Check state against country
+    #   Every row has a state and a country. Find out whether they’re consistent.
+    # How:
+    # Build a set of valid US state codes. 
+    # Type out the two-letter codes as a Python set — or at minimum the ten that appear in this file. 
+    # Check which states are actually present first: df['state'].unique().
+    # Create a boolean column: does this row have a recognized US state code?
+    # Cross-tabulate state against country: pd.crosstab(df['state'], df['country'])
+    # Count the rows where the state is a US state code but the country is not USA.
+US_STATES = {'AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA','KS','KY',
+             'LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND',
+             'OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY','DC'}
+df['is_us_states'] = df.state.isin(US_STATES)
+print(pd.crosstab(df.state,df.country))
+bug = df.is_us_states & (df.country != 'USA')
+print(f'\nUS state but not in US: {bug.sum()} ({(bug.mean() * 100):.1f}%)')
+print(df.loc[bug,['supplier_id','supplier_name','city','state','zip_code','country']].to_string(index=False))
