@@ -29,4 +29,17 @@ def get_type(name) :
 def get_stat(name) :
     data = get_data(name)
     return {t['stat']['name']:t['base_stat'] for t in data['stats']}
-print(get_stat('greninja'))
+# print(get_stat('greninja'))
+
+    # A3 — Count moves and find the hidden ability
+    # Do this: Print how many moves the Pokémon can learn, the first five move names, and whether it has a hidden ability.
+def get_moveset(name) :
+    data = get_data(name)
+    moves = [t['move']['name'] for t in data['moves']]
+    hidden = next((a['ability']['name'] for a in data['abilities'] if a['is_hidden']),'None')
+    return {'name':data['name'],
+            'move_count':len(moves),
+            'first_five': moves[:5],
+            'hidden_abilities':hidden}
+sample = get_moveset('bulbasaur')
+print(sample)
